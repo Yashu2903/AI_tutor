@@ -8,7 +8,7 @@ st.title("Stateful AI Tutor (Feature 1)")
 topic = st.text_input("What do you want to learn?")
 
 if st.button("Start"):
-    r = requests.post(f"{API}/start_tutor", params={"topic": topic})
+    r = requests.post(f"{API}/tutor/start", params={"topic": topic})
     data = r.json()
 
     st.subheader("📘 Lesson")
@@ -17,5 +17,4 @@ if st.button("Start"):
     st.subheader("❓ Question")
     st.write(data["question"])
 
-    st.text_input("Your answer (next feature)")
 
