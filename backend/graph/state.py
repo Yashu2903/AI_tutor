@@ -4,7 +4,12 @@ class TutorState(TypedDict):
     topic: str
     lesson: Optional[str]
     question: Optional[str]
-    phase: Literal["teach", "ask", "wait"]
+    answer: Optional[str]
+    correct: Optional[bool]
+    feedback: Optional[str]
+    phase: Literal["teach", "ask", "wait", "evaluate", "decide"]
+
+
 
 
     
