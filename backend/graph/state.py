@@ -9,6 +9,10 @@ class TutorState(TypedDict):
     feedback: Optional[str]
     phase: Literal["teach", "ask", "wait", "evaluate", "decide"]
 
+    difficulty: Literal["easy", "medium", "hard"]
+    mistakes: int
+    streak: int
+
 
 
 

@@ -15,24 +15,26 @@ if st.button("Start"):
     st.session_state["state"] = data
 
     st.subheader("📘 Lesson")
-    st.write(data["lesson"])
+    st.write(data.get("lesson"))
 
     st.subheader("❓ Question")
-    st.write(data["question"])
+    st.write(data.get("question"))
 
 answer = st.text_input("Your answer")
 
 if st.button("Submit answer"):
-    if "state" not in st.session_state:
+    if "state" not in st.session_state or "session_id" not in st.session_state["state"]:
         st.error("Please start a lesson first!")
     else:
-        state = st.session_state["state"].copy()
-        state["answer"] = answer
-        r = requests.post(f"{API}/tutor/answer", json=state)
+        session_id = st.session_state["state"]["session_id"]
+        r = requests.post(
+            f"{API}/tutor/answer",
+            json={"session_id": session_id, "answer": answer}
+        )
         new_state = r.json()
         
         # Update stored state
-        st.session_state["state"] = new_state
+        st.session_state["state"] = {"session_id": session_id, **new_state}
 
         st.write(new_state.get("feedback"))
         st.write(new_state.get("question"))
